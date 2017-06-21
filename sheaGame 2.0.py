@@ -11,7 +11,7 @@ import os #help python identify your os
 class player(pygame.sprite.Sprite):
     #spawn a player
     def _init_(self):
-        pygame.sprite.Sprite._init_(self)
+        pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load(os.path.join('images', 'hero.png')).convert()
         self.image.convert_alpha() #optimise for alpha
         self.image.set_colorkey(alpha) #set alpha
