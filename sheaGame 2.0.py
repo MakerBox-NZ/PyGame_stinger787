@@ -10,8 +10,11 @@ import os #help python identify your os
 # put classes & functions here
 class player(pygame.sprite.Sprite):
     #spawn a player
-    def _init_(self):
+    def _init_
         pygame.sprite.Sprite.__init__(self)
+        self.momentumX = 0 #move along X
+        self.momentumY = 0 #move along Y
+                                                                                                                                                                                                                            
         self.image = pygame.image.load(os.path.join('images', 'hero.png')).convert()
         self.image.convert_alpha() #optimise for alpha
         self.image.set_colorkey(alpha) #set alpha
@@ -19,7 +22,15 @@ class player(pygame.sprite.Sprite):
 
         self.rect = self.image.get_rect()
         
+    def control(self, x, y):
+        #control player movement
+        self.momentumX += x
+        self.momentumY += y
 
+    def update(self):
+        #update sprite position
+
+        
 
 '''SETUP'''
 #code runs once
