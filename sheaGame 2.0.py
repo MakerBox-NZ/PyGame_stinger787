@@ -10,7 +10,7 @@ import os #help python identify your os
 # put classes & functions here
 class player(pygame.sprite.Sprite):
     #spawn a player
-    def _init_
+    def __init__
         pygame.sprite.Sprite.__init__(self)
         self.momentumX = 0 #move along X
         self.momentumY = 0 #move along Y
@@ -29,9 +29,39 @@ class player(pygame.sprite.Sprite):
 
     def update(self):
         #update sprite position
+        currentX = self.rect.x
+        nextX = currentX + self.momentumX
+        self.rect.x = nextX
 
+        currentY = self.rect.y
+        nextY = currentY + self.momentumY
+        self.rect.Y = nextY
+
+class enemy(pygame.sprite.Sprite):
+    #spawn an enemy
+    def __init__(self,x,y,img):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.image.load(os.path.join('images', img))
+        self.image.convert_alpha()
+        self.image.set(colorkey(alpha)
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+        sef.counter = 0 #counter variable
+    
+    def move(self):
+        #enemy movement
+        it self.counter >= 0 and self.counter <= 30:
+            self.rect.x += 2
+        elif self.counter>= 30 and self.counter <=60
+            self.rect.x -=2
+        else:
+            self.counter = 0
+            print('reset')
+
+        self.counter += 1
         
-
+            
 '''SETUP'''
 #code runs once
 
@@ -62,7 +92,12 @@ player.rect.x = 0
 player.rect.y = 0
 movingsprites = pygame.sprite.Group()
 movingsprites.add(player)
+movesteps = 10 #how fast to move
 
+#enemy code
+enemy = Enemy(100,50, 'enemy.png') #spawn enemy
+enemy_list = pygame.sprite.group() #create enemy group
+enemy_list.add(enemy) #add enemy to group
 
 
 '''MAINLOOP'''
@@ -77,21 +112,30 @@ while main == True:
                 main = False
             if event.key == pygame.K_LEFT:
                 print('left stop')
+                player.control(movesteps, 0)
             if event.key == pygame.K_RIGHT:
                 print('right stop')
+                player.control(-movesteps, 0)
             if event.key == pygame.K_UP:
                 print('up stop')
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
                 print('left')
+                player.control(movesteps, 0)
             if event.key == pygame.K_RIGHT:
                 print('right')
+                player.control(-movesteps, 0)
             if event.key == pygame.K_UP:
                 print('up')
 
     screen.blit(backdrop, backdropRect)
 
+    player.update() #update player postion
+    movingsprites.draw(screen) #draw playe
+    
+    enemy_list.draw(screen) #refresh enemies
+    enemy.move() #move enemy sprite
     pygame.display.flip()
     clock.tick(fps)
 
