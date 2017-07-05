@@ -10,10 +10,12 @@ import os #help python identify your os
 # put classes & functions here
 class player(pygame.sprite.Sprite):
     #spawn a player
-    def __init__
+    def __init__(self):
         pygame.sprite.Sprite.__init__(self)
         self.momentumX = 0 #move along X
         self.momentumY = 0 #move along Y
+
+        self.score = 0#set score
                                                                                                                                                                                                                             
         self.image = pygame.image.load(os.path.join('images', 'hero.png')).convert()
         self.image.convert_alpha() #optimise for alpha
@@ -35,25 +37,32 @@ class player(pygame.sprite.Sprite):
 
         currentY = self.rect.y
         nextY = currentY + self.momentumY
-        self.rect.Y = nextY
+        self.rect.y = nextY
 
-class enemy(pygame.sprite.Sprite):
+        #collisions
+        enemy_hit_list = pygame.sprite.spritecollide(self, enemy_list, False)
+        for enemy in enemy_hit_list:
+            self.score -= 1
+            print(self.score)
+
+        
+class Enemy(pygame.sprite.Sprite):
     #spawn an enemy
     def __init__(self,x,y,img):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load(os.path.join('images', img))
         self.image.convert_alpha()
-        self.image.set(colorkey(alpha)
+        self.image.set_colorkey(alpha)
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
-        sef.counter = 0 #counter variable
+        self.counter = 0 #counter variable
     
     def move(self):
         #enemy movement
-        it self.counter >= 0 and self.counter <= 30:
+        if self.counter >= 0 and self.counter <= 30:
             self.rect.x += 2
-        elif self.counter>= 30 and self.counter <=60
+        elif self.counter>= 30 and self.counter <=60:
             self.rect.x -=2
         else:
             self.counter = 0
@@ -71,7 +80,7 @@ screenY = 720 #height
 
 
 
-alpha = (0, 0, 0)
+alpha = (0, 255, 0)
 black = (1, 1, 1)
 white = (255, 255, 255)
 
@@ -96,7 +105,7 @@ movesteps = 10 #how fast to move
 
 #enemy code
 enemy = Enemy(100,50, 'enemy.png') #spawn enemy
-enemy_list = pygame.sprite.group() #create enemy group
+enemy_list = pygame.sprite.Group() #create enemy group
 enemy_list.add(enemy) #add enemy to group
 
 
@@ -122,10 +131,10 @@ while main == True:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
                 print('left')
-                player.control(movesteps, 0)
+                player.control(-movesteps, 0)
             if event.key == pygame.K_RIGHT:
                 print('right')
-                player.control(-movesteps, 0)
+                player.control(movesteps, 0)
             if event.key == pygame.K_UP:
                 print('up')
 
