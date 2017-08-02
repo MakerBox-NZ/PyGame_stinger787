@@ -80,7 +80,7 @@ screenY = 720 #height
 
 
 
-alpha = (0, 255, 0)
+alpha = (0, 0, 0)
 black = (1, 1, 1)
 white = (255, 255, 255)
 
