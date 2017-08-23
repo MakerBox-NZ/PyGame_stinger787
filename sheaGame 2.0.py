@@ -58,12 +58,12 @@ class player(pygame.sprite.Sprite):
                 self.momentumY = 0
 
 
-    def gravity(self):
+    '''def gravity(self):
         self.momentumY += 3.2  #how fast player falls
 
         if self.rect.y > 960 and self .momentumY >= 0:
             self.momentumY = 0
-            self.rect.y = screenY-20
+            self.rect.y = screenY-20'''
 
         
         
@@ -137,7 +137,7 @@ pygame.init()
 main = True
 
 screen = pygame.display.set_mode([screenX, screenY])
-backdrop = pygame.image.load(os.path.join('images','stage.png')).convert()
+backdrop = pygame.image.load(os.path.join('images','backdrop.png')).convert()
 backdropRect = screen.get_rect()
 
 platform_list = platform.level1() #set stage to level 1
@@ -150,7 +150,7 @@ movingsprites.add(player)
 movesteps = 10 #how fast to move
 
 #enemy code
-enemy = Enemy(100,50, 'enemy.png') #spawn enemy
+enemy = Enemy(420,280, 'enemy.png') #spawn enemy    #X, Y, img
 enemy_list = pygame.sprite.Group() #create enemy group
 enemy_list.add(enemy) #add enemy to group
 
@@ -187,7 +187,7 @@ while main == True:
     screen.blit(backdrop, backdropRect)
 
     platform_list.draw(screen) #draw platforms on screen
-    player.gravity() #check gravity
+    #player.gravity() #check gravity
     player.update(enemy_list, platform_list) #update player postion
     movingsprites.draw(screen) #draw playe
     
