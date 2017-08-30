@@ -172,7 +172,10 @@ while main == True:
                 print('right stop')
                 player.control(-movesteps, 0)
             if event.key == pygame.K_UP:
+                player.control(0, movesteps)
                 print('up stop')
+            if event.key == pygame.K_DOWN:
+                print('down stop')
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
@@ -183,6 +186,10 @@ while main == True:
                 player.control(movesteps, 0)
             if event.key == pygame.K_UP:
                 print('up')
+                player.control(0, -movesteps)
+            if event.key == pygame.K_DOWN:
+                print('down')
+                player.control(0, movesteps)
 
     screen.blit(backdrop, backdropRect)
 
