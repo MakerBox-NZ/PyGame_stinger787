@@ -58,12 +58,12 @@ class player(pygame.sprite.Sprite):
                 self.momentumY = 0
 
 
-    '''def gravity(self):
+    def gravity(self):
         self.momentumY += 3.2  #how fast player falls
 
         if self.rect.y > 960 and self .momentumY >= 0:
             self.momentumY = 0
-            self.rect.y = screenY-20'''
+            self.rect.y = screenY-20
 
         
         
